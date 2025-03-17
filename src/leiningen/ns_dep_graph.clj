@@ -21,7 +21,8 @@
   (let [options {"-name"     "ns-dep-graph"
                  "-platform" ":clj"
                  "-parents"  "[]"
-                 "-format" "clojure.core/identity"}
+                 "-format" "clojure.core/identity"
+                 "-dpi"    "72"}
         hashed-args (hash-user-arguments args options)
         valid-options (remove nil? (map #(find hashed-args (first %)) options))]
     (merge options (into {} (filter (comp some? val) valid-options)))))
@@ -49,6 +50,7 @@
         part-of-parents?  #(or (empty? ns-parents)
                                (contains? ns-parents %)
                                (boolean (seq (set/intersection ns-parents (ns-dep/transitive-dependents dep-graph %)))))
+        dpi-value (-> built-args (get "-dpi") edn/read-string int)
         nodes (->> (ns-dep/nodes dep-graph)
                    (filter part-of-project?)
                    (filter part-of-parents?))]
@@ -60,7 +62,7 @@
                nodes
                #(filter part-of-project? (ns-dep/immediate-dependencies dep-graph %))
                :node->descriptor (fn [x] {:label (format-fn x)})
-               :options {:dpi 72}
+               :options {:dpi dpi-value}
                :filename (add-image-extension name))))))
 
 ;; TODO: maybe add option to show dependencies on external namespaces as well.
