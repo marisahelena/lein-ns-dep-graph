@@ -62,7 +62,15 @@
                nodes
                #(filter part-of-project? (ns-dep/immediate-dependencies dep-graph %))
                :node->descriptor (fn [x] {:label (format-fn x)})
-               :options {:dpi dpi-value}
+               :options {:dpi dpi-value        ;; High resolution
+                         :fontsize 20          
+                         :rankdir "TB"         ;; vertical direction (top-down)
+                         :nodesep 0.8          ;; node horizontal spacing
+                         :ranksep 1.5          ;; node vertical spacing
+                         :size "30,30"         ;; Space to render larger graphs
+                         :splines true         ;; Curved lines for better readability
+                         :overlap false        ;; Avoid element overlap
+                         }
                :filename (add-image-extension name))))))
 
 ;; TODO: maybe add option to show dependencies on external namespaces as well.
