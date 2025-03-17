@@ -10,7 +10,7 @@
   (:import [java.io PushbackReader]))
 
 (defn- add-image-extension [name]
-  (str name ".png"))
+  (str name ".svg"))
 
 (defn- hash-user-arguments [args options]
   (try (apply hash-map args)
