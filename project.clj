@@ -4,5 +4,5 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :eval-in-leiningen true
-  :dependencies [[org.clojure/tools.namespace "1.1.0"]
+  :dependencies [[org.clojure/tools.namespace "1.4.5"]
                  [rhizome "0.1.8"]])
